@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Controle de Documentos de Qualidade</title>
+  <link href="./output.css" rel="stylesheet">
+  <!-- Adicionando Material Icons para uma UI mais bonita -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans h-screen flex overflow-hidden">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-slate-900 text-slate-100 flex flex-col shadow-xl z-10 transition-all duration-300">
+    <div class="p-6 text-2xl font-black border-b border-slate-800 flex items-center gap-3 tracking-tight">
+      <span class="material-icons text-blue-500">verified</span>
+      QualiDoc
+    </div>
+    <nav class="flex-1 px-4 py-8 space-y-2">
+      <button onclick="nav('home')" class="w-full text-left px-4 py-3 rounded-lg hover:bg-slate-800 hover:text-blue-400 transition-colors flex items-center gap-3 font-medium">
+        <span class="material-icons text-sm">home</span> Início
+      </button>
+      <button onclick="nav('consultar')" class="w-full text-left px-4 py-3 rounded-lg hover:bg-slate-800 hover:text-blue-400 transition-colors flex items-center gap-3 font-medium">
+        <span class="material-icons text-sm">search</span> Consultar
+      </button>
+      <button onclick="nav('inserir')" class="w-full text-left px-4 py-3 rounded-lg hover:bg-slate-800 hover:text-blue-400 transition-colors flex items-center gap-3 font-medium">
+        <span class="material-icons text-sm">upload_file</span> Inserir Arquivo
+      </button>
+      <button onclick="nav('setores')" class="w-full text-left px-4 py-3 rounded-lg hover:bg-slate-800 hover:text-blue-400 transition-colors flex items-center gap-3 font-medium">
+        <span class="material-icons text-sm">domain</span> Setores
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 flex flex-col bg-slate-50 relative">
+    <!-- Topbar -->
+    <header class="h-20 bg-white shadow-sm flex items-center px-10 border-b border-slate-200 z-0">
+      <h1 id="page-title" class="text-2xl font-bold text-slate-800 tracking-tight">Início</h1>
+    </header>
+
+    <!-- Pages Container -->
+    <div class="p-10 overflow-y-auto flex-1 h-full scroll-smooth" id="content-container">
+      
+      <!-- Home -->
+      <section id="page-home" class="page-section animate-fade-in">
+        <div class="max-w-4xl">
+          <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+            <h2 class="text-3xl font-extrabold mb-4 text-slate-900 tracking-tight">Bem-vindo ao <span class="text-blue-600">QualiDoc</span></h2>
+            <p class="text-slate-600 mb-6 text-lg leading-relaxed">Este sistema foi desenvolvido para facilitar o controle de documentos de qualidade, instruções de trabalho e formulários específicos em diversos setores da sua empresa.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+              <div class="bg-blue-50 p-6 rounded-xl border border-blue-100">
+                <span class="material-icons text-blue-600 text-4xl mb-4">search</span>
+                <h3 class="font-bold text-blue-900 mb-2">Consultar</h3>
+                <p class="text-blue-800 text-sm">Visualize e baixe os documentos separados por setor rapidamente.</p>
+              </div>
+              <div class="bg-emerald-50 p-6 rounded-xl border border-emerald-100">
+                <span class="material-icons text-emerald-600 text-4xl mb-4">upload_file</span>
+                <h3 class="font-bold text-emerald-900 mb-2">Inserir</h3>
+                <p class="text-emerald-800 text-sm">Adicione novos documentos em formato PDF ao sistema de forma segura.</p>
+              </div>
+              <div class="bg-purple-50 p-6 rounded-xl border border-purple-100">
+                <span class="material-icons text-purple-600 text-4xl mb-4">domain</span>
+                <h3 class="font-bold text-purple-900 mb-2">Setores</h3>
+                <p class="text-purple-800 text-sm">Gerencie as áreas da sua empresa com facilidade.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Consultar -->
+      <section id="page-consultar" class="page-section hidden h-full animate-fade-in">
+        <div class="flex flex-col md:flex-row gap-8 h-full">
+          <!-- Separador Lateral para Setores -->
+          <div class="w-full md:w-1/4 bg-white p-6 rounded-2xl shadow-sm border border-slate-100 h-fit">
+            <h3 class="font-bold text-slate-800 mb-6 uppercase tracking-wider text-sm flex items-center gap-2">
+              <span class="material-icons text-slate-400">filter_list</span> Filtrar por Setor
+            </h3>
+            <ul id="filter-setores-list" class="space-y-3">
+                <!-- Dynamically populated -->
+            </ul>
+          </div>
+          <!-- Document list -->
+          <div class="w-full md:w-3/4 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden flex flex-col">
+             <div class="overflow-y-auto w-full flex-1">
+               <table class="w-full text-left border-collapse">
+                <thead class="bg-slate-50 sticky top-0">
+                  <tr>
+                    <th class="p-4 text-sm font-semibold text-slate-600 uppercase tracking-wider border-b">ID</th>
+                    <th class="p-4 text-sm font-semibold text-slate-600 uppercase tracking-wider border-b">Título</th>
+                    <th class="p-4 text-sm font-semibold text-slate-600 uppercase tracking-wider border-b">Setor</th>
+                    <th class="p-4 text-sm font-semibold text-slate-600 uppercase tracking-wider border-b">Estado</th>
+                    <th class="p-4 text-sm font-semibold text-slate-600 uppercase tracking-wider border-b text-right">Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="docs-tbody" class="divide-y divide-slate-100"></tbody>
+               </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Inserir -->
+      <section id="page-inserir" class="page-section hidden animate-fade-in">
+         <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 max-w-xl">
+            <form id="insert-form" class="space-y-6">
+              <div>
+                <label class="block mb-2 font-semibold text-sm text-slate-700">Título do Documento</label>
+                <input type="text" id="doc-titulo" required class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow text-slate-800">
+              </div>
+              <div>
+                <label class="block mb-2 font-semibold text-sm text-slate-700">Setor</label>
+                <select id="doc-setor" required class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow text-slate-800 bg-white">
+                  <!-- Dynamically populated -->
+                </select>
+              </div>
+              <div>
+                <label class="block mb-2 font-semibold text-sm text-slate-700">Arquivo (apenas PDF)</label>
+                <div class="flex gap-2">
+                  <input type="text" id="doc-file-path" readonly required placeholder="Nenhum arquivo selecionado" class="flex-1 p-3 border border-slate-300 rounded-lg bg-slate-50 outline-none text-sm text-slate-600 cursor-not-allowed">
+                  <button type="button" onclick="selectPdf()" class="bg-slate-800 text-white px-6 py-3 rounded-lg hover:bg-slate-700 transition-colors font-semibold flex items-center gap-2 whitespace-nowrap">
+                    <span class="material-icons text-sm">folder_open</span> Procurar
+                  </button>
+                </div>
+              </div>
+              <div class="pt-4">
+                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors shadow-md shadow-blue-500/30 flex items-center justify-center gap-2">
+                  <span class="material-icons">save</span> Salvar Documento
+                </button>
+              </div>
+            </form>
+         </div>
+      </section>
+
+      <!-- Setores -->
+      <section id="page-setores" class="page-section hidden animate-fade-in">
+         <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 max-w-3xl">
+           <form id="add-setor-form" class="flex gap-3 mb-8">
+             <input type="text" id="novo-setor" required placeholder="Nome do novo setor" class="flex-1 p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow">
+             <button type="submit" class="bg-emerald-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-emerald-700 transition-colors shadow-md shadow-emerald-500/30 flex items-center gap-2">
+               <span class="material-icons">add</span> Adicionar
+             </button>
+           </form>
+           
+           <div class="overflow-hidden border border-slate-100 rounded-xl">
+             <table class="w-full text-left border-collapse">
+                <thead class="bg-slate-50">
+                  <tr>
+                    <th class="p-4 text-sm font-semibold text-slate-600 uppercase tracking-wider w-20">ID</th>
+                    <th class="p-4 text-sm font-semibold text-slate-600 uppercase tracking-wider">Nome do Setor</th>
+                    <th class="p-4 text-sm font-semibold text-slate-600 uppercase tracking-wider w-32 text-right">Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="setores-tbody" class="divide-y divide-slate-100"></tbody>
+             </table>
+           </div>
+         </div>
+      </section>
+      
+    </div>
+  </main>
+
+  <style>
+    .animate-fade-in {
+      animation: fadeIn 0.3s ease-in-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* Mudar scrollbar para algo mais sutil no tailwind - utilitario global */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+  </style>
+
+  <script src="./renderer.js"></script>
+</body>
+</html>

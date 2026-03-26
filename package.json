@@ -1,0 +1,19 @@
+{
+  "name": "app-qualidade-llm",
+  "version": "1.0.0",
+  "description": "App Controle de Qualidade",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "npm run build:css && electron .",
+    "build:css": "tailwindcss -i ./src/input.css -o ./src/output.css",
+    "rebuild": "npm rebuild --build-from-source sqlite3"
+  },
+  "dependencies": {
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "electron": "^29.1.5",
+    "tailwindcss": "^3.4.1"
+  }
+}
