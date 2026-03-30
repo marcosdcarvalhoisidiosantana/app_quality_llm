@@ -4,5 +4,4 @@ database.sqlite
 dist/
 .env
 Prompt.md
-package-lock.json
 *.log
