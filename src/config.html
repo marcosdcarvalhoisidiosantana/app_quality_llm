@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Configurações RAG Pipeline</title>
+  <link href="./output.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    .animate-fade-in { animation: fadeIn 0.3s ease-in-out forwards; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col p-8 animate-fade-in">
+  <h2 class="text-2xl font-bold mb-2 flex items-center gap-2 text-slate-800">
+    <span class="material-icons text-blue-600">settings_applications</span> 
+    Configuração do Pipeline RAG
+  </h2>
+  <p class="text-slate-500 mb-8 text-sm">Ajuste os parâmetros locais de extração semântica e chunking do modelo Embeddings local (all-MiniLM-L6-v2).</p>
+
+  <form id="rag-config-form" class="space-y-6 flex-1">
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+        <div class="mb-5">
+            <label class="block mb-2 font-semibold text-sm text-slate-700">Chunk Size (Tamanho do Bloco)</label>
+            <input type="number" id="chunk-size" name="chunkSize" required min="100" max="2000" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-slate-800">
+            <p class="text-xs mt-2 text-slate-400">Define o número máximo de caracteres que comporão um único extrato de texto. Padrão: 600.</p>
+        </div>
+        <div>
+            <label class="block mb-2 font-semibold text-sm text-slate-700">Chunk Overlap (Sobreposição)</label>
+            <input type="number" id="chunk-overlap" name="chunkOverlap" required min="0" max="500" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-slate-800">
+            <p class="text-xs mt-2 text-slate-400">Define o limite de sobreposição de caracteres entre dois chunks contíguos para evitar perda de contexto. Padrão: 60.</p>
+        </div>
+    </div>
+    
+    <div class="pt-4 flex justify-end gap-3">
+        <button type="button" id="btn-cancel" class="px-6 py-3 font-semibold text-slate-600 bg-slate-200 hover:bg-slate-300 rounded-lg transition-colors">
+            Cancelar
+        </button>
+        <button type="submit" id="btn-save" class="px-6 py-3 font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md shadow-blue-500/30 transition-colors flex items-center gap-2">
+            <span class="material-icons text-sm">save</span> Salvar Localmente
+        </button>
+      </div>
+    </form>
+  </div>
+  <script src="../dist/src/config.js"></script>
+</body>
+</html>

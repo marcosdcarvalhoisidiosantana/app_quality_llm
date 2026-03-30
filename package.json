@@ -2,18 +2,25 @@
   "name": "app-qualidade-llm",
   "version": "1.0.0",
   "description": "App Controle de Qualidade",
-  "main": "main.js",
+  "main": "dist/main.js",
   "scripts": {
-    "start": "electron .",
-    "dev": "npm run build:css && electron .",
+    "start": "tsc && electron .",
+    "dev": "tsc && npm run build:css && electron .",
+    "build": "tsc",
     "build:css": "tailwindcss -i ./src/input.css -o ./src/output.css",
     "rebuild": "npm rebuild --build-from-source sqlite3"
   },
   "dependencies": {
+    "@langchain/textsplitters": "^1.0.1",
+    "@xenova/transformers": "^2.17.2",
+    "pdf-parse": "^2.4.5",
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
+    "@types/node": "^25.5.0",
+    "@types/sqlite3": "^3.1.11",
     "electron": "^29.1.5",
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.1",
+    "typescript": "^6.0.2"
   }
 }
