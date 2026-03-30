@@ -2,4 +2,7 @@ node_modules/
 database.sqlite
 .vscode/
 dist/
+.env
+Prompt.md
+package-lock.json
 *.log
